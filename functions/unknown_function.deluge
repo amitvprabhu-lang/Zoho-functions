@@ -15,7 +15,7 @@ for each  lead in leads
 	updateMap = Map();
 	updateMap.put("Lead_Status","Contacted");
 	updateMap.put("Phone",phone);
-	result = zoho.crm.updateRecord("Leads",leadId,updateMap);
+	result = zoho.crm.updateRecord("My_Leads",leadId,updateMap);
 	try 
 	{
 		webhookResp = invokeurl
