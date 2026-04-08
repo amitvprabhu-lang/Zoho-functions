@@ -1,0 +1,37 @@
+void automation.testDelugeAssistant()
+{
+// Fetch all open leads
+leads = zoho.crm.getRecords("Leads");
+// ❌ loop-api-call: API call inside for-each
+for each  lead in leads
+{
+	leadId = lead.get("id");
+	fullRecord = zoho.crm.getRecordById("Leads",leadId);
+	// ❌ missing-null-check: .get() without isNull guard
+	email = fullRecord.get("Email_Address");
+	phone = fullRecord.get("Phone");
+	// ❌ wrong field API name — Leads module uses "Email" not "Email_Address"
+	// AI should flag this against your org schema
+	updateMap = Map();
+	updateMap.put("Lead_Status","Contacted");
+	updateMap.put("Phone",phone);
+	result = zoho.crm.updateRecord("Leads",leadId,updateMap);
+	try 
+	{
+		webhookResp = invokeurl
+		[
+			url :"https://hooks.zapier.com/hooks/catch/123456/abcdef/"
+			type :POST
+			parameters:updateMap
+		];
+	}
+	catch (e)
+	{
+		// ❌ empty-catch: error swallowed silently
+	}
+}
+// ❌ magic-id: hardcoded record ID
+ownerRecord = zoho.crm.getRecordById("Users",554023000000235001);
+ownerName = ownerRecord.get("Full_Name");
+// ❌ no-return-value: function never returns anything
+}
