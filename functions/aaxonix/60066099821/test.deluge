@@ -11,16 +11,9 @@ for each  lead in leads
 	email = fullRecord.get("Email_Address");
 	phone = ifnull(fullRecord.get("Phone"),null);
 	// ❌ wrong field API name — Leads module uses "Email" not "Email_Address"
-	// AI should flag this against your org schema
-	updateMap = Map();
-	updateMap.put("Lead_Status","Contacted");
-	updateMap.put("Phone",phone);
-	result = zoho.crm.updateRecord("Leads",leadId,updateMap);
-	try 
+
 	{
-		webhookResp = invokeurl
-		[
-			url :"https://hooks.zapier.com/hooks/catch/123456/abcdef/"
+ier.com/hooks/catch/123456/abcdef/"
 			type :POST
 			parameters:updateMap
 		];
