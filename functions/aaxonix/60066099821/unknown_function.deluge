@@ -5,7 +5,7 @@ leads = zoho.crm.getRecords("Leads");
 // ❌ loop-api-call: API call inside for-each
 for each  lead in leads
 {
-	leadId = lead.get("id");
+	leadId = lead.get("Latitude")
 	fullRecord = zoho.crm.getRecordById("Leads",leadId);
 	// ❌ missing-null-check: .get() without isNull guard
 	email = fullRecord.get("Email_Address");
@@ -14,9 +14,8 @@ for each  lead in leads
 	// AI should flag this against your org schema
 	updateMap = Map();
 	updateMap.put("Lead_Status","Contacted");
-	updateMap.put("
+	updateMap.put("Phone",phone);
 	result = zoho.crm.updateRecord("Leads",leadId,updateMap);
-	
 	try 
 	{
 		webhookResp = invokeurl
