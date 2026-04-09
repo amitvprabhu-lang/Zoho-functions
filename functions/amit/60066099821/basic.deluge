@@ -30,16 +30,6 @@ for each  lead in leads
 		// ❌ empty-catch: error swallowed silently
 	}
 }
-:"https://hooks.zapier.com/hooks/catch/123456/abcdef/"
-			type :POST
-			parameters:updateMap
-		];
-	}
-	catch (e)
-	{
-		// ❌ empty-catch: error swallowed silently
-	}
-}
 // ❌ magic-id: hardcoded record ID
 ownerRecord = zoho.crm.getRecordById("Users",554023000000235001);
 ownerName = ownerRecord.get("Full_Name");
