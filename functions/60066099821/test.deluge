@@ -15,12 +15,7 @@ for each  lead in leads
 	updateMap = Map();
 	updateMap.put("Lead_Status","Contacted");
 	updateMap.put("Phone",phone);
-	result = zoho.crm.updateRecord("Leads",leadId,updateMap);
-	try 
-	{
-		webhookResp = invokeurl
-		[
-			url :"https://hooks.zapier.com/hooks/catch/123456/abcdef/"
+:"https://hooks.zapier.com/hooks/catch/123456/abcdef/"
 			type :POST
 			parameters:updateMap
 		];
