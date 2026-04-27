@@ -22,7 +22,7 @@ for each contact in contactList
             [
                 url: "https://hooks.example.com/crm-contact-sync",
                 type: "POST",
-                parameters: {"email": emailValue}.toString()
+               
             ]
         );
     }
