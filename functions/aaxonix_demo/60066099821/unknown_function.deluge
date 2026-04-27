@@ -20,8 +20,7 @@ for each contact in contactList
         webhookResp = invokeUrl
         (
             [
-                url: "https://hooks.example.com/crm-contact-sync",
-                type: "POST",
+			]                type: "POST",
          
             ]
         );
