@@ -45,7 +45,7 @@ try
 }
 catch
 {
-    // intentionally empty — rule fires here
+    // intentionally empty
 }
 
 // Rule 5 (no-return-value): function body never reaches a return statement
