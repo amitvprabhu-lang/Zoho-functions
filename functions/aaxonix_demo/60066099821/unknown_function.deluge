@@ -1,0 +1,51 @@
+
+contactList = zoho.crm.getRecords("Contacts");
+
+// --- Rule 1: loop-api-call ---
+for each contact in contactList
+{
+    contactId = contact.get("id");
+
+    // Rule 1 fires here — API call inside the for-each body
+    fullRecord = zoho.crm.getRecordById("Contacts", contactId);
+
+    // --- Rule 2: missing-null-check (.get without isNull guard) ---
+    emailValue = fullRecord.get("Email");
+
+    // --- Rule 8: string-in-condition ("Active" == variable) ---
+    status = fullRecord.get("Lead_Status");
+    if ("Active" == status)
+    {
+        // --- Rule 6 + Rule 10: invokeUrl with hardcoded URL and no connection_timeout ---
+        webhookResp = invokeUrl
+        (
+            [
+                url: "https://hooks.example.com/crm-contact-sync",
+                type: "POST",
+                parameters: {"email": emailValue}.toString()
+            ]
+        );
+    }
+}
+
+// --- Rule 7: bulk-no-error-check ---
+updateList = list();
+updateList.add({"id": "100000000000000001", "Lead_Status": "Qualified"});
+bulkResult = zoho.crm.bulkUpdate("Contacts", updateList);
+// bulkResult.get("failed_count") is never checked — rule fires
+
+// --- Rule 4: magic-id (18-digit numeric literal) ---
+fixedContactId = "123456789012345678";
+singleRecord = zoho.crm.getRecordById("Contacts", fixedContactId);
+
+// --- Rule 3: empty-catch ---
+try
+{
+    parsedData = singleRecord.get("Description").toMap();
+}
+catch
+{
+    // intentionally empty — rule fires here
+}
+
+// Rule 5 (no-return-value): function body never reaches a return statement
