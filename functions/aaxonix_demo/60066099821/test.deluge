@@ -1,0 +1,29 @@
+void automation.testDelugeDebugger()
+{
+// Step 1: Get leads from CRM (mock data will be used)
+leads = zoho.crm.getRecords("Leads");
+info "Fetched " + leads.size() + " leads";
+// Step 2: Loop through each lead
+for each  lead in leads
+{
+	leadId = lead.get("id");
+	firstName = lead.get("First_Name");
+	lastName = lead.get("Last_Name");
+	email = lead.get("Email");
+	info leadId + " | " + firstName + " " + lastName;
+	// Step 3: Check if email exists
+	if(isNull(email))
+	{
+		info "No email for: " + lastName;
+	}
+	else
+	{
+		// Step 4: Build an update map
+		updateMap = Map();
+		updateMap.put("Lead_Status","Contacted");
+		updateMap.put("Description","Processed by debugger");
+		info "Would update: " + lastName + " -> " + updateMap.get("Lead_Status");
+	}
+}
+info "Done.";
+}
